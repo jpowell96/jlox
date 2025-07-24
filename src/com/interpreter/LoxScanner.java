@@ -77,8 +77,20 @@ public class LoxScanner {
                 string();
                 break;
             default:
-                Lox.error(line, "Unexpected character."); break;
+                if (isDigit(c)) {
+                    number();
+                } else {
+                    Lox.error(line, "Unexpected character."); break;
+                }
         }
+    }
+
+    private boolean isDigit(char c) {
+        return c >= '0' && c <= '9';
+    }
+
+    private void number() {
+        // TODO: Continue implementation of number() from page 52
     }
 
     private void string() {
