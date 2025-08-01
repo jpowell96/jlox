@@ -209,7 +209,7 @@ public class LoxScanner {
 
     private char advance() {
         // The postfix ++ operator means that we get the value of current, and THEN increment.
-        // This is semanticall equivalent:
+        // This is semantically equivalent:
         /**
          * char c = source.charAt(current);
          * current += 1;
