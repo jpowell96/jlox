@@ -67,7 +67,7 @@ public class GenerateAst {
     }
 
     private static void defineType(PrintWriter writer, String baseName, String className, String fieldList) {
-        writer.println(" static class " + className + " extends " + baseName + " {");
+        writer.println(" public static class " + className + " extends " + baseName + " {");
 
         // Constructor with the field names
         writer.println(" " + className + "(" + fieldList + ") {");
@@ -96,10 +96,10 @@ public class GenerateAst {
     }
 
     /**
-    * Q: Why use the Visitor pattern?
+    * Q: Why and how do we use the Visitor pattern?
     * A:
      *
-     * This method generates the visitor interface.
+     * This method generates the visitor interface that each expression subclass implements
     * */
     private static void defineVisitor(PrintWriter writer, String baseName, List<String> types) {
         writer.println(" interface Visitor<R> { ");
