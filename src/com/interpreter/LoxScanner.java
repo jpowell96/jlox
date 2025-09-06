@@ -112,6 +112,8 @@ public class LoxScanner {
     }
 
     private void identifier() {
+        // Continue to move current one character at a time until there is not an alphanumberic character
+        // This is a simple form of "maximal munch" so we avoid registering "orchid" as "or", a reserved keyword, and "chid"
         while (isAlphaNumeric(peek())) {
             advance();
         }
