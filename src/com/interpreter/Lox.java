@@ -9,7 +9,10 @@ import java.nio.file.Paths;
 import java.util.List;
 
 public class Lox {
-    static boolean hadError;
+    static boolean hadError = false;
+    static boolean hadRuntimeError = false;
+
+    private static final Interpreter interpreter = new Interpreter();
     public static void main(String[] args) throws IOException {
         if (args.length > 1) {
             System.out.println("Usage: jlox [script]");
@@ -28,6 +31,11 @@ public class Lox {
         if (hadError) {
             System.exit(65);
         }
+
+        if (hadRuntimeError) {
+            System.exit(70);
+        }
+
     }
 
     private static void runPrompt() throws IOException {
@@ -58,6 +66,8 @@ public class Lox {
         }
 
         System.out.println(new AstPrinter().print(expression));
+        interpreter.interpret(expression);
+
     }
 
     static void error(int line, String message) {
@@ -73,11 +83,15 @@ public class Lox {
         }
     }
 
+    static void runtimeError(RuntimeError error) {
+        System.err.println(error.getMessage() + "\n[line " + error.token.line + " ]");
+        hadRuntimeError = true;
+    }
+
     private static void report(int line, String where, String message) {
         // TODO: Improve error printing to print the actual line. Refer to page 42 for example
         System.err.println("[line " + line + "] Error" + where + ": " + message);
         hadError = true;
     }
-
 
 }
