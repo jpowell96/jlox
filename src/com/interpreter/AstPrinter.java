@@ -30,6 +30,11 @@ public class AstPrinter implements Expr.Visitor<String> {
         return parenthesize(expr.operator.lexeme, expr.right);
     }
 
+    @Override
+    public String visitBranchExpr(Expr.Branch expr) {
+        return parenthesize("TERNARY", expr.conditional, expr.true_branch, expr.false_branch);
+    }
+
     private String parenthesize(String name, Expr... exprs) {
         StringBuilder builder = new StringBuilder();
 

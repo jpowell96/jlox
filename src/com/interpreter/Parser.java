@@ -1,5 +1,6 @@
 package com.interpreter;
 
+import java.util.Comparator;
 import java.util.List;
 
 import static com.interpreter.TokenType.*;
@@ -14,7 +15,7 @@ public class Parser {
         this.tokens = tokens;
     }
 
-    Expr parse() {
+    public Expr parse() {
         try {
             return expression();
         } catch (ParseError e) {
@@ -26,6 +27,25 @@ public class Parser {
         return equality();
     }
 
+    private Expr branch() {
+        Expr branch_condition = equality();
+
+        while (match(TERNARY)) {
+            // Get the expression for the true_branch
+            Expr true_branch = expression();
+
+            // Consume tokens until the colon of the ternary
+            consume(COLON, "Expected a colon");
+
+            // The expression after the colon is the branch if the condition is false
+            Expr false_branch = expression();
+
+            branch_condition = new Expr.Branch(branch_condition, true_branch, false_branch);
+
+        }
+
+        return branch_condition;
+    }
     private Expr equality() {
         Expr expr = comparison();
 

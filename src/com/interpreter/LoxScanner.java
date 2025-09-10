@@ -67,6 +67,7 @@ public class LoxScanner {
             case '.' : addToken(DOT); break;
             case '-' : addToken(MINUS); break;
             case '+' : addToken(PLUS); break;
+            case ':' : addToken(COLON); break;
             case ';' : addToken(SEMICOLON); break;
             case '*' : addToken(STAR); break;
             case '!':
@@ -77,6 +78,8 @@ public class LoxScanner {
                 addToken(match('=') ? LESS_EQUAL : LESS); break;
             case '>':
                 addToken(match('=') ? GREATER_EQUAL : GREATER); break;
+            case '?':
+                addToken(TERNARY); break;
             case '/':
                 if (match('/')) {
                     // A comment goes until the end of the line. Keep advancing until we get a new line character

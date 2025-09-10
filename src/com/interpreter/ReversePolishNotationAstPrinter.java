@@ -51,6 +51,14 @@ public class ReversePolishNotationAstPrinter implements Expr.Visitor<String> {
         return expr.right.accept(this) + " " + expr.operator.lexeme;
     }
 
+    @Override
+    public String visitBranchExpr(Expr.Branch expr) {
+        // (a + b) == 3 ? 7 : 8
+
+
+        return "";
+    }
+
     public static void main(String[] args) {
         // (1 + 2)
         Expr onePlusTwo = new Expr.Grouping(new Expr.Binary(new Expr.Literal(1), new Token(TokenType.PLUS, "+", null, 1), new Expr.Literal(2)));
